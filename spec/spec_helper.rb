@@ -1,14 +1,26 @@
 require "bundler/setup"
 require "boolean_timestamp"
+require "timecop"
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
-
-  # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  ActiveRecord::Base.establish_connection(
+    adapter: "sqlite3",
+    database: ":memory:",
+  )
+
+  ActiveRecord::Schema.define do
+    suppress_messages do
+      create_table :articles do |t|
+        t.string :title
+        t.timestamp :published_at
+      end
+    end
   end
 end

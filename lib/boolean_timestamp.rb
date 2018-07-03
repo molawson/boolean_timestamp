@@ -1,5 +1,7 @@
 require "boolean_timestamp/version"
 
+require "active_record"
+
 module BooleanTimestamp
   def self.included(base)
     base.extend ClassMethods

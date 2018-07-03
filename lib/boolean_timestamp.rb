@@ -16,28 +16,37 @@ module BooleanTimestamp
       unless column_names.include?(column_name)
         raise(
           ArgumentError,
-          "Can't build methods from unknown column '#{fully_qualified_column_name}'",
+          "Can't build boolean methods from unknown column '#{fully_qualified_column_name}'",
         )
       end
+      define_boolean_timestamp_scopes(method_name, fully_qualified_column_name)
+      define_boolean_timestamp_accessors(method_name, column_name)
+    end
 
-      define_singleton_method(method_name) do
-        where("#{fully_qualified_column_name} <= ?", Time.current)
-      end
+    private
 
-      define_singleton_method("not_#{method_name}") do
-        where(
-          "#{fully_qualified_column_name} IS NULL OR #{fully_qualified_column_name} > ?",
-          Time.current,
-        )
-      end
+    def define_boolean_timestamp_scopes(method_name, fully_qualified_column_name)
+      scope(method_name, -> { where("#{fully_qualified_column_name} <= ?", Time.current) })
 
-      define_method method_name do
+      scope(
+        "not_#{method_name}",
+        lambda do
+          where(
+            "#{fully_qualified_column_name} IS NULL OR #{fully_qualified_column_name} > ?",
+            Time.current,
+          )
+        end,
+      )
+    end
+
+    def define_boolean_timestamp_accessors(method_name, column_name)
+      define_method(method_name) do
         public_send(column_name).present? && !public_send(column_name).future?
       end
 
-      alias_method "#{method_name}?", method_name
+      alias_method("#{method_name}?", method_name)
 
-      define_method "#{method_name}=" do |value|
+      define_method("#{method_name}=") do |value|
         if ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
           public_send("#{column_name}=", nil)
         elsif !public_send(method_name)

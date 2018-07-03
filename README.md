@@ -1,15 +1,16 @@
 # BooleanTimestamp
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/boolean_timestamp`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+True/False fields have a great simplicity about them, and many times they're perfect for the job!
+But, it's not uncommon end up in a place where you'd really love to keep some degree of simplicity with a little more detail about when the value was changed.
+Sometimes you'll want to display that information to the user and other times you'll keep it for auditing or debugging purposes.
+Either way, `boolean_timestamp` makes the job easy from the beginning and adds very little code to your app.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'boolean_timestamp'
+gem "boolean_timestamp"
 ```
 
 And then execute:
@@ -22,7 +23,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In any `ActiveRecord` model, you can define a boolean field based on a timestamp column by including the `BooleanTimestmap` module and calling a single method.
+
+```ruby
+class Article < ActiveRecord::Base
+  include BooleanTimestamp
+  boolean_timestamp :published # works with an existing column named `published_at`
+end
+```
+
+The gem doesn't provide any code for setting up the database column. You'll need to use Rails migrations (or any other means you choose) to create the tables and columns you need.
 
 ## Development
 

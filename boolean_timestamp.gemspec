@@ -9,9 +9,14 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mo Lawson"]
   spec.email         = ["moklawson@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{The precision of a timestamp column with the API of a boolean column}
+  spec.description   = %q{True/False fields have a great simplicity about them, and many times
+  they're perfect for the job! But, it's not uncommon end up in a place where you'd really love to
+  keep some degree of simplicity with a little more detail about when the value was changed.
+  Sometimes you'll want to display that information to the user and other times you'll keep it for
+  auditing or debugging purposes. Either way, boolean_timestamp makes the job easy from the
+  beginning and adds very little code to your app.}
+  spec.homepage      = "https://github.com/molawson/boolean_timestamp"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.

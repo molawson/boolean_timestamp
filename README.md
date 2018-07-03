@@ -1,5 +1,9 @@
 # BooleanTimestamp
 
+[![Build Status](https://travis-ci.org/molawson/boolean_timestamp.svg?branch=master)](https://travis-ci.org/molawson/boolean_timestamp)
+[![Maintainability](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/maintainability)](https://codeclimate.com/github/molawson/boolean_timestamp/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/test_coverage)](https://codeclimate.com/github/molawson/boolean_timestamp/test_coverage)
+
 True/False fields have a great simplicity about them, and many times they're perfect for the job!
 But, it's not uncommon end up in a place where you'd really love to keep some degree of simplicity with a little more detail about when the value was changed.
 Sometimes you'll want to display that information to the user and other times you'll keep it for auditing or debugging purposes.

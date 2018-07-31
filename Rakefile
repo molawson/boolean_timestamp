@@ -16,10 +16,17 @@ namespace :spec do
     Rake::Task["spec"].execute
   end
 
+  desc "Run tests with postgresql adapter"
+  task :postgres do
+    ENV["DB_ADAPTER"] = "postgres"
+    Rake::Task["spec"].execute
+  end
+
   desc "Run tests with all adapters"
   task :all do
     Rake::Task["spec:sqlite"].execute
     Rake::Task["spec:mysql"].execute
+    Rake::Task["spec:postgres"].execute
   end
 end
 

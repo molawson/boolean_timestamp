@@ -27,15 +27,30 @@ rescue ActiveRecord::Tasks::DatabaseAlreadyExists
   ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).create
 end
 
+def create_postgres_database(config)
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).create
+rescue ActiveRecord::Tasks::DatabaseAlreadyExists
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).drop
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).create
+end
+
 def setup_database(config)
-  create_mysql_database(config) if config["adapter"] == "mysql2"
+  case config["adapter"]
+  when "mysql2"
+    create_mysql_database(config)
+  when "postgresql"
+    create_postgres_database(config)
+  end
   create_database_schema(config)
 end
 
 def teardown_database(config)
-  return unless config["adapter"] == "mysql2"
-
-  ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).drop
+  case config["adapter"]
+  when "mysql2"
+    ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).drop
+  when "postgresql"
+    ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).drop
+  end
 end
 
 RSpec.configure do |config|
@@ -56,6 +71,11 @@ RSpec.configure do |config|
       "host" => "127.0.0.1",
       "username" => "root",
       "password" => nil,
+      "database" => "boolean_timestamp_test",
+    },
+    "postgres" => {
+      "adapter" => "postgresql",
+      "encoding" => "unicode",
       "database" => "boolean_timestamp_test",
     },
   }.freeze

@@ -18,6 +18,12 @@ Gem::Specification.new do |spec|
   beginning and adds very little code to your app.}
   spec.homepage      = "https://github.com/molawson/boolean_timestamp"
   spec.license       = "MIT"
+  spec.metadata      = {
+    "homepage_uri" => "https://github.com/molawson/boolean_timestamp",
+    "changelog_uri" => "https://github.com/molawson/boolean_timestamp/blob/master/CHANGELOG.md",
+    "source_code_uri" => "https://github.com/molawson/boolean_timestamp",
+    "bug_tracker_uri" => "https://github.com/molawson/boolean_timestamp/issues",
+  }
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

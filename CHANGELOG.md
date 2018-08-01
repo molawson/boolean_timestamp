@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Remove over-eager check for column existence
 
 ## [0.2.0] - 2018-07-31
 ### Added

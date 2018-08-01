@@ -14,9 +14,8 @@ RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
       expect(klass.new.published?).to be false
     end
 
-    it "fails if column name doesn't exist" do
-      expect { define_attribute(:missing_column) }
-        .to raise_error(ArgumentError, /unknown column 'articles\.missing_column_at'/)
+    it "doesn't fail on class definition even if column is missing" do
+      expect { define_attribute(:missing_column) }.not_to raise_error
     end
   end
 

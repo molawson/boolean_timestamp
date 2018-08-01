@@ -13,12 +13,6 @@ module BooleanTimestamp
       column_name = "#{method_name}_at"
       fully_qualified_column_name = "#{table_name}.#{column_name}"
 
-      unless column_names.include?(column_name)
-        raise(
-          ArgumentError,
-          "Can't build boolean methods from unknown column '#{fully_qualified_column_name}'",
-        )
-      end
       define_boolean_timestamp_scopes(method_name, fully_qualified_column_name)
       define_boolean_timestamp_accessors(method_name, column_name)
     end

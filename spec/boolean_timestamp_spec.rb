@@ -38,12 +38,12 @@ RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
           expect(default_klass.published.map(&:title)).to eq(%w[Before On])
         end
       end
+    end
 
-      context "negative" do
-        it "only includes records with null values or after the current time" do
-          Timecop.freeze(now) do
-            expect(default_klass.not_published.map(&:title)).to eq(%w[After Nil])
-          end
+    context "negative" do
+      it "only includes records with null values or after the current time" do
+        Timecop.freeze(now) do
+          expect(default_klass.not_published.map(&:title)).to eq(%w[After Nil])
         end
       end
     end

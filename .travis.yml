@@ -1,36 +1,20 @@
 sudo: false
 env:
   global:
-    - CC_TEST_REPORTER_ID=a7a2478b2a951030d73fbb60cb2b78e485ab91fbd4f608e891cb2bf98b285998
     - COVERAGE=true
 language: ruby
 rvm:
-  - 2.3
-  - 2.4
   - 2.5
   - 2.6
+  - 2.7
+  - 3.0
 gemfile:
-  - gemfiles/activerecord_4_0.gemfile
-  - gemfiles/activerecord_4_1.gemfile
-  - gemfiles/activerecord_4_2.gemfile
-  - gemfiles/activerecord_5_0.gemfile
-  - gemfiles/activerecord_5_1.gemfile
   - gemfiles/activerecord_5_2.gemfile
-matrix:
-  exclude:
-  - rvm: 2.4
-    gemfile: gemfiles/activerecord_4_0.gemfile
-  - rvm: 2.4
-    gemfile: gemfiles/activerecord_4_1.gemfile
-  - rvm: 2.5
-    gemfile: gemfiles/activerecord_4_0.gemfile
-  - rvm: 2.5
-    gemfile: gemfiles/activerecord_4_1.gemfile
-  - rvm: 2.6
-    gemfile: gemfiles/activerecord_4_0.gemfile
-  - rvm: 2.6
-    gemfile: gemfiles/activerecord_4_1.gemfile
-before_install: gem install bundler -v 1.16.2
+  - gemfiles/activerecord_6_0.gemfile
+  - gemfiles/activerecord_6_1.gemfile
+before_install:
+  - yes | gem update --system --force
+  - gem install bundler
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

@@ -17,6 +17,15 @@ RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
     it "doesn't fail on class definition even if column is missing" do
       expect { define_attribute(:missing_column) }.not_to raise_error
     end
+
+    it "defaults to strict: true" do
+      klass = Class.new(ActiveRecord::Base) do
+        self.table_name = "articles"
+        include BooleanTimestamp
+        boolean_timestamp :published
+      end
+      expect(klass.new(published_at: Time.now + 100).published?).to be false
+    end
   end
 
   context "query scopes" do
@@ -31,38 +40,78 @@ RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
 
     after { default_klass.delete_all }
 
-    context "positive" do
-      it "only includes records before or matching the current time" do
-        Timecop.freeze(now) do
-          expect(default_klass.published.map(&:title)).to eq(%w[Before On])
+    context "strict" do
+      context "positive" do
+        it "only includes records before or matching the current time" do
+          Timecop.freeze(now) do
+            expect(default_klass.published.map(&:title)).to eq(%w[Before On])
+          end
+        end
+      end
+
+      context "negative" do
+        it "only includes records with null values or after the current time" do
+          Timecop.freeze(now) do
+            expect(default_klass.not_published.map(&:title)).to eq(%w[After Nil])
+          end
         end
       end
     end
 
-    context "negative" do
-      it "only includes records with null values or after the current time" do
-        Timecop.freeze(now) do
-          expect(default_klass.not_published.map(&:title)).to eq(%w[After Nil])
+    context "loose" do
+      context "positive" do
+        it "only includes records before or matching the current time" do
+          Timecop.freeze(now) do
+            expect(loose_klass.published.map(&:title)).to eq(%w[Before On After])
+          end
+        end
+      end
+
+      context "negative" do
+        it "only includes records with null values or after the current time" do
+          Timecop.freeze(now) do
+            expect(loose_klass.not_published.map(&:title)).to eq(%w[Nil])
+          end
         end
       end
     end
   end
 
   context "attribute reader" do
-    it "returns true for values before current time" do
-      expect(default_klass.new(published_at: Time.current - 100).published).to eq(true)
+    context "strict" do
+      it "returns true for values before current time" do
+        expect(default_klass.new(published_at: Time.current - 100).published).to eq(true)
+      end
+
+      it "returns true for values matching current time" do
+        expect(default_klass.new(published_at: Time.current).published).to eq(true)
+      end
+
+      it "returns false for values after current time" do
+        expect(default_klass.new(published_at: Time.current + 100).published).to eq(false)
+      end
+
+      it "returns false for nil values" do
+        expect(default_klass.new.published).to eq(false)
+      end
     end
 
-    it "returns true for values matching current time" do
-      expect(default_klass.new(published_at: Time.current).published).to eq(true)
-    end
+    context "loose" do
+      it "returns true for values before current time" do
+        expect(loose_klass.new(published_at: Time.current - 100).published).to eq(true)
+      end
 
-    it "returns false for values after current time" do
-      expect(default_klass.new(published_at: Time.current + 100).published).to eq(false)
-    end
+      it "returns true for values matching current time" do
+        expect(loose_klass.new(published_at: Time.current).published).to eq(true)
+      end
 
-    it "returns false for nil values" do
-      expect(default_klass.new.published).to eq(false)
+      it "returns true for values after current time" do
+        expect(loose_klass.new(published_at: Time.current + 100).published).to eq(true)
+      end
+
+      it "returns false for nil values" do
+        expect(loose_klass.new.published).to eq(false)
+      end
     end
   end
 
@@ -126,17 +175,21 @@ RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
 
   private
 
-  def define_attribute(method_name)
+  def define_attribute(method_name, strict: true)
     Class.new(ActiveRecord::Base) do
       self.table_name = "articles"
 
       include BooleanTimestamp
 
-      boolean_timestamp method_name
+      boolean_timestamp method_name, strict: strict
     end
   end
 
   def default_klass
     @default_klass ||= define_attribute(:published)
+  end
+
+  def loose_klass
+    @loose_klass ||= define_attribute(:published, strict: false)
   end
 end

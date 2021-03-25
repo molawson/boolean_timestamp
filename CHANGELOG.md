@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Breaking
+- Drop support for Rails < 5.2.0
+- Drop support for Ruby < 2.5.0
+
+### Added
+- Support for Rails 6.0 and 6.1
+- Support for Ruby 2.7 and 3.0
 
 ## [0.2.1] - 2018-08-01
 ### Fixed

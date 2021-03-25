@@ -15,6 +15,10 @@ gemfile:
   - gemfiles/activerecord_5_2.gemfile
   - gemfiles/activerecord_6_0.gemfile
   - gemfiles/activerecord_6_1.gemfile
+matrix:
+   exclude:
+   - rvm: 3.0
+     gemfile: gemfiles/activerecord_5_2.gemfile
 before_install:
   - yes | gem update --system --force
   - gem install bundler

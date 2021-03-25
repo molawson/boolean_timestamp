@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.metadata      = {
     "homepage_uri" => "https://github.com/molawson/boolean_timestamp",
-    "changelog_uri" => "https://github.com/molawson/boolean_timestamp/blob/master/CHANGELOG.md",
+    "changelog_uri" => "https://github.com/molawson/boolean_timestamp/blob/main/CHANGELOG.md",
     "source_code_uri" => "https://github.com/molawson/boolean_timestamp",
     "bug_tracker_uri" => "https://github.com/molawson/boolean_timestamp/issues",
   }

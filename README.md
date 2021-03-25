@@ -1,6 +1,6 @@
 # BooleanTimestamp
 
-[![Build Status](https://travis-ci.org/molawson/boolean_timestamp.svg?branch=master)](https://travis-ci.org/molawson/boolean_timestamp)
+[![Build Status](https://travis-ci.org/molawson/boolean_timestamp.svg?branch=main)](https://travis-ci.org/molawson/boolean_timestamp)
 [![Maintainability](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/maintainability)](https://codeclimate.com/github/molawson/boolean_timestamp/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/test_coverage)](https://codeclimate.com/github/molawson/boolean_timestamp/test_coverage)
 
@@ -54,4 +54,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the BooleanTimestamp project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/molawson/boolean_timestamp/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the BooleanTimestamp project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/molawson/boolean_timestamp/blob/main/CODE_OF_CONDUCT.md).

@@ -8,6 +8,13 @@ if ENV["COVERAGE"]
   SimpleCov.start
 end
 
+DB_ALREADY_EXISTS_ERROR = if ActiveRecord.const_defined?("DatabaseAlreadyExists")
+                            ActiveRecord::DatabaseAlreadyExists
+                          else
+                            ActiveRecord::Tasks::DatabaseAlreadyExists
+                          end
+
+
 def create_database_schema(config)
   ActiveRecord::Base.establish_connection(config)
   ActiveRecord::Schema.define do
@@ -21,17 +28,17 @@ def create_database_schema(config)
 end
 
 def create_mysql_database(config)
-  ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).create
-rescue ActiveRecord::Tasks::DatabaseAlreadyExists
-  ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).drop
-  ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).create
+  ActiveRecord::Tasks::MySQLDatabaseTasks.new(db_config config).create
+rescue DB_ALREADY_EXISTS_ERROR
+  ActiveRecord::Tasks::MySQLDatabaseTasks.new(db_config config).drop
+  ActiveRecord::Tasks::MySQLDatabaseTasks.new(db_config config).create
 end
 
 def create_postgres_database(config)
-  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).create
-rescue ActiveRecord::Tasks::DatabaseAlreadyExists
-  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).drop
-  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).create
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(db_config config).create
+rescue DB_ALREADY_EXISTS_ERROR
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(db_config config).drop
+  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(db_config config).create
 end
 
 def setup_database(config)
@@ -47,9 +54,17 @@ end
 def teardown_database(config)
   case config["adapter"]
   when "mysql2"
-    ActiveRecord::Tasks::MySQLDatabaseTasks.new(config).drop
+    ActiveRecord::Tasks::MySQLDatabaseTasks.new(db_config config).drop
   when "postgresql"
-    ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config).drop
+    ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(db_config config).drop
+  end
+end
+
+def db_config(config_hash)
+  if ActiveRecord.version >= Gem::Version.new("6.1.0")
+    ActiveRecord::DatabaseConfigurations::HashConfig.new("default_env", "primary", config_hash)
+  else
+    config_hash
   end
 end
 
@@ -72,6 +87,7 @@ RSpec.configure do |config|
       "username" => "root",
       "password" => nil,
       "database" => "boolean_timestamp_test",
+      "collation" => "utf8mb4_general_ci",
     },
     "postgres" => {
       "adapter" => "postgresql",
@@ -80,14 +96,14 @@ RSpec.configure do |config|
     },
   }.freeze
   adapter = ENV["DB_ADAPTER"] || "sqlite"
-  adapter_config = DB_CONFIG.fetch(adapter)
+  config_hash = DB_CONFIG.fetch(adapter)
 
   config.before(:suite) do
     puts "Running #{adapter} tests"
-    setup_database(adapter_config)
+    setup_database(config_hash)
   end
 
   config.after(:suite) do
-    teardown_database(adapter_config)
+    teardown_database(config_hash)
   end
 end

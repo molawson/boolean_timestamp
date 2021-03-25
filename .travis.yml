@@ -1,7 +1,10 @@
-sudo: false
 env:
   global:
     - COVERAGE=true
+services:
+  - sqlite3
+  - mysql
+  - postgresql
 language: ruby
 rvm:
   - 2.5

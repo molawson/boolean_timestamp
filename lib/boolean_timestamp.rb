@@ -34,12 +34,6 @@ module BooleanTimestamp
     end
 
     def define_boolean_timestamp_accessors(method_name, column_name)
-      false_values = if ActiveRecord::VERSION::MAJOR >= 5
-                       ActiveModel::Type::Boolean::FALSE_VALUES
-                     else
-                       ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES
-                     end
-
       define_method(method_name) do
         public_send(column_name).present? && !public_send(column_name).future?
       end
@@ -47,7 +41,7 @@ module BooleanTimestamp
       alias_method("#{method_name}?", method_name)
 
       define_method("#{method_name}=") do |value|
-        if false_values.include?(value)
+        if ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
           public_send("#{column_name}=", nil)
         elsif !public_send(method_name)
           public_send("#{column_name}=", Time.current)

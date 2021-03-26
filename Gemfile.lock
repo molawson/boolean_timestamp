@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    boolean_timestamp (0.2.1)
+    boolean_timestamp (1.0.0)
       activerecord (>= 5.2.0)
 
 GEM

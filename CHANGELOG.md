@@ -1,11 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.0.0] - 2021-03-26
 ### Breaking
 - Drop support for Rails < 5.2.0
 - Drop support for Ruby < 2.5.0
 
 ### Added
+- `strict: false` option for simpler querying where possible
 - Support for Rails 6.0 and 6.1
 - Support for Ruby 2.7 and 3.0
 
@@ -23,6 +26,7 @@
 ### Added
 - Copy/paste of code from app where it was originally used
 
-[Unreleased]: https://github.com/molawson/boolean_timestamp/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/molawson/boolean_timestamp/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/molawson/boolean_timestamp/compare/v0.2.1...v1.0.0
 [0.2.1]: https://github.com/molawson/boolean_timestamp/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/molawson/boolean_timestamp/compare/v0.1.0...v0.2.0

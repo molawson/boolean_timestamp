@@ -3,7 +3,7 @@ require "active_record/tasks/database_tasks"
 DB_CONFIG = {
   "sqlite" => {
     adapter: "sqlite3",
-    database: ":memory:",
+    database: ":memory:"
   },
   "mysql" => {
     "adapter" => "mysql2",
@@ -11,20 +11,20 @@ DB_CONFIG = {
     "username" => "root",
     "password" => nil,
     "database" => "boolean_timestamp_test",
-    "collation" => "utf8mb4_general_ci",
+    "collation" => "utf8mb4_general_ci"
   },
   "postgres" => {
     "adapter" => "postgresql",
     "encoding" => "unicode",
-    "database" => "boolean_timestamp_test",
-  },
+    "database" => "boolean_timestamp_test"
+  }
 }.freeze
 
 DB_ALREADY_EXISTS_ERROR = if ActiveRecord.const_defined?("DatabaseAlreadyExists")
-                            ActiveRecord::DatabaseAlreadyExists
-                          else
-                            ActiveRecord::Tasks::DatabaseAlreadyExists
-                          end
+  ActiveRecord::DatabaseAlreadyExists
+else
+  ActiveRecord::Tasks::DatabaseAlreadyExists
+end
 
 class TestDatabase
   def initialize(adapter)
@@ -37,7 +37,7 @@ class TestDatabase
   end
 
   def teardown
-    tasks.drop if tasks
+    tasks&.drop
   end
 
   private
@@ -46,13 +46,13 @@ class TestDatabase
 
   def config
     @config ||= begin
-                  config_hash = DB_CONFIG.fetch(adapter)
-                  if ActiveRecord.version >= Gem::Version.new("6.1.0")
-                    ActiveRecord::DatabaseConfigurations::HashConfig.new("default_env", "primary", config_hash)
-                  else
-                    config_hash
-                  end
-                end
+      config_hash = DB_CONFIG.fetch(adapter)
+      if ActiveRecord.version >= Gem::Version.new("6.1.0")
+        ActiveRecord::DatabaseConfigurations::HashConfig.new("default_env", "primary", config_hash)
+      else
+        config_hash
+      end
+    end
   end
 
   def tasks
@@ -61,7 +61,7 @@ class TestDatabase
                  ActiveRecord::Tasks::MySQLDatabaseTasks.new(config)
                when "postgres"
                  ActiveRecord::Tasks::PostgreSQLDatabaseTasks.new(config)
-               end
+    end
   end
 
   def load_schema

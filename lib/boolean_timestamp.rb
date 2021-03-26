@@ -35,9 +35,9 @@ module BooleanTimestamp
         lambda do
           where(
             "#{fully_qualified_column_name} IS NULL OR #{fully_qualified_column_name} > ?",
-            Time.current,
+            Time.current
           )
-        end,
+        end
       )
     end
 

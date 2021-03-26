@@ -10,8 +10,8 @@ gem "mysql2"
 gem "pg"
 gem "rake", ">= 12.3.3"
 gem "rspec", "~> 3.0"
-gem "rubocop", "0.54.0"
 gem "sqlite3"
+gem "standard", "~> 1.0"
 gem "timecop"
 
 group :test do

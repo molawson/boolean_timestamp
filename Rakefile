@@ -3,6 +3,8 @@ require "rspec/core/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
+require "standard/rake"
+
 namespace :spec do
   desc "Run tests with sqlite3 adapter"
   task :sqlite do
@@ -30,4 +32,4 @@ namespace :spec do
   end
 end
 
-task default: :spec
+task default: %i[spec standard]

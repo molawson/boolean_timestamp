@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: [ '2.5', '2.6', '2.7', '3.0' ]
+        ruby-version: [ '2.5', '2.6', '2.7', '3.0', '3.1' ]
         gemfile:
           - activerecord_5_2
           - activerecord_6_0
@@ -28,6 +28,8 @@ jobs:
           - ruby-version: 2.6
             gemfile: activerecord_7_0
           - ruby-version: 3.0
+            gemfile: activerecord_5_2
+          - ruby-version: 3.1
             gemfile: activerecord_5_2
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile

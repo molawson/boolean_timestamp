@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - Support for Rails 7.0
+- Support for Ruby 3.1
 
 ## [1.0.0] - 2021-03-26
 ### Breaking

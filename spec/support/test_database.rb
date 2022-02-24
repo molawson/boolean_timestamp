@@ -9,14 +9,15 @@ DB_CONFIG = {
     "adapter" => "mysql2",
     "host" => "127.0.0.1",
     "username" => "root",
-    "password" => nil,
+    "password" => "root",
     "database" => "boolean_timestamp_test",
     "collation" => "utf8mb4_general_ci"
   },
   "postgres" => {
     "adapter" => "postgresql",
     "encoding" => "unicode",
-    "database" => "boolean_timestamp_test"
+    "database" => "boolean_timestamp_test",
+    "username" => "postgres"
   }
 }.freeze
 

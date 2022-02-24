@@ -1,6 +1,6 @@
 # BooleanTimestamp
 
-[![Build Status](https://app.travis-ci.com/molawson/boolean_timestamp.svg?branch=main)](https://app.travis-ci.com/molawson/boolean_timestamp)
+[![CI](https://github.com/molawson/boolean_timestamp/actions/workflows/ci.yml/badge.svg)](https://github.com/molawson/boolean_timestamp/actions/workflows/ci.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/maintainability)](https://codeclimate.com/github/molawson/boolean_timestamp/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/23eb9fb7a853d24551fa/test_coverage)](https://codeclimate.com/github/molawson/boolean_timestamp/test_coverage)
 

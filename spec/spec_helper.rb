@@ -3,7 +3,7 @@ require "boolean_timestamp"
 require "timecop"
 require_relative "support/test_database"
 
-if ENV["COVERAGE"]
+if ENV["COVERAGE"] == "true"
   require "simplecov"
   SimpleCov.start
 end

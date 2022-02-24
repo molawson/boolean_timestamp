@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: [ '2.5', '2.6', '2.7', '3.0' ]
+        gemfile:
+          - activerecord_5_2
+          - activerecord_6_0
+          - activerecord_6_1
+          - activerecord_7_0
+        include:
+          - ruby-version: '3.0'
+            gemfile: activerecord_7_0
+            primary: 'true'
+        exclude:
+          - ruby-version: 2.5
+            gemfile: activerecord_7_0
+          - ruby-version: 2.6
+            gemfile: activerecord_7_0
+          - ruby-version: 3.0
+            gemfile: activerecord_5_2
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+    steps:
+      - name: Database setup
+        run: |
+          sudo sed -i s/peer/trust/g /etc/postgresql/*/main/pg_hba.conf
+          sudo systemctl start postgresql.service
+          sudo systemctl start mysql.service
+      - uses: actions/checkout@v2
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - uses: amancevice/setup-code-climate@v0
+        name: CodeClimate setup
+        if: ${{ matrix.primary == 'true' }}
+        with:
+          cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: CodeClimate before-build
+        run: cc-test-reporter before-build
+        if: ${{ matrix.primary == 'true' }}
+        continue-on-error: true
+      - name: Run tests
+        env:
+          COVERAGE: ${{ matrix.primary }}
+        run: bundle exec rake spec:all
+      - name: CodeClimate after-build
+        run: cc-test-reporter after-build
+        if: ${{ matrix.primary == 'true' }}
+        continue-on-error: true
+      - name: Standard
+        run: bundle exec rake standard
+        if: ${{ matrix.primary == 'true' }}

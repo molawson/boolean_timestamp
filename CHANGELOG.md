@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.1.0] - 2022-02-25
 ### Added
 - Support for Rails 7.0
 - Support for Ruby 3.1
@@ -31,7 +33,8 @@
 ### Added
 - Copy/paste of code from app where it was originally used
 
-[Unreleased]: https://github.com/molawson/boolean_timestamp/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/molawson/boolean_timestamp/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/molawson/boolean_timestamp/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/molawson/boolean_timestamp/compare/v0.2.1...v1.0.0
 [0.2.1]: https://github.com/molawson/boolean_timestamp/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/molawson/boolean_timestamp/compare/v0.1.0...v0.2.0

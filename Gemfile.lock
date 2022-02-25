@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    boolean_timestamp (1.0.0)
+    boolean_timestamp (1.1.0)
       activerecord (>= 5.2.0)
 
 GEM
@@ -99,4 +99,4 @@ DEPENDENCIES
   timecop
 
 BUNDLED WITH
-   2.3.5
+   2.3.8

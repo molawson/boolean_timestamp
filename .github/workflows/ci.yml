@@ -16,13 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         ruby-version:
-          - '2.5'
+          - '2.5' # deprecated
           - '2.6'
           - '2.7'
           - '3.0'
           - '3.1'
         gemfile:
-          - activerecord_5_2
+          - activerecord_5_2 # deprecated
           - activerecord_6_0
           - activerecord_6_1
           - activerecord_7_0

@@ -94,14 +94,14 @@ This gem works with a variety of Ruby and Rails versions. The aim is to cover as
 
 | | Ruby 2.5 | Ruby 2.6 | Ruby 2.7 | Ruby 3.0 | Ruby 3.1 |
 | --- | :---: | :---: | :---: | :---: | :---: |
-| **Rails 5.2** | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry: | :no_entry: |
-| **Rails 6.0** | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| **Rails 6.1** | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| **Rails 5.2** | :warning: | :warning: | :warning: | :no_entry: | :no_entry: |
+| **Rails 6.0** | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| **Rails 6.1** | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | **Rails 7.0** | :no_entry: | :no_entry: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 * :white_check_mark: - fully tested and supported
 * :no_entry: - not tested or supported
-* :eight_pointed_black_star: - support and testing will be removed in the next major release of this gem (usually because at least one of the versions of Ruby or Rails has reached EOL for its maintainers)
+* :warning: - support and testing will be removed in the next major release of this gem (usually because at least one of the versions of Ruby or Rails has reached EOL for its maintainers)
 
 ## Development
 

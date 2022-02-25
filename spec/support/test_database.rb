@@ -21,7 +21,7 @@ DB_CONFIG = {
   }
 }.freeze
 
-DB_ALREADY_EXISTS_ERROR = if ActiveRecord.const_defined?("DatabaseAlreadyExists")
+DB_ALREADY_EXISTS_ERROR = if ActiveRecord.const_defined?(:DatabaseAlreadyExists)
   ActiveRecord::DatabaseAlreadyExists
 else
   ActiveRecord::Tasks::DatabaseAlreadyExists

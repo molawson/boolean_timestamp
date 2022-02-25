@@ -2,17 +2,25 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - 'ml/**'
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  test:
+  RSpec:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: [ '2.5', '2.6', '2.7', '3.0', '3.1' ]
+        ruby-version:
+          - '2.5'
+          - '2.6'
+          - '2.7'
+          - '3.0'
+          - '3.1'
         gemfile:
           - activerecord_5_2
           - activerecord_6_0
@@ -21,7 +29,7 @@ jobs:
         include:
           - ruby-version: '3.0'
             gemfile: activerecord_7_0
-            primary: 'true'
+            coverage: 'true'
         exclude:
           - ruby-version: 2.5
             gemfile: activerecord_7_0
@@ -47,21 +55,29 @@ jobs:
           bundler-cache: true
       - uses: amancevice/setup-code-climate@v0
         name: CodeClimate setup
-        if: ${{ matrix.primary == 'true' }}
+        if: ${{ matrix.coverage == 'true' }}
         with:
           cc_test_reporter_id: ${{ secrets.CC_TEST_REPORTER_ID }}
       - name: CodeClimate before-build
         run: cc-test-reporter before-build
-        if: ${{ matrix.primary == 'true' }}
+        if: ${{ matrix.coverage == 'true' }}
         continue-on-error: true
       - name: Run tests
         env:
-          COVERAGE: ${{ matrix.primary }}
+          COVERAGE: ${{ matrix.coverage }}
         run: bundle exec rake spec:all
       - name: CodeClimate after-build
         run: cc-test-reporter after-build
-        if: ${{ matrix.primary == 'true' }}
+        if: ${{ matrix.coverage == 'true' }}
         continue-on-error: true
+  Standard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
       - name: Standard
         run: bundle exec rake standard
-        if: ${{ matrix.primary == 'true' }}

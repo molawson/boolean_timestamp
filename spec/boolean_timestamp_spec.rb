@@ -1,4 +1,4 @@
-RSpec.describe BooleanTimestamp do # rubocop:disable Metrics/BlockLength
+RSpec.describe BooleanTimestamp do
   it "has a version number" do
     expect(BooleanTimestamp::VERSION).not_to be nil
   end

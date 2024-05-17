@@ -26,15 +26,20 @@ jobs:
           - activerecord_6_0
           - activerecord_6_1
           - activerecord_7_0
+          - activerecord_7_1
         include:
           - ruby-version: '3.0'
-            gemfile: activerecord_7_0
+            gemfile: activerecord_7_1
             coverage: 'true'
         exclude:
           - ruby-version: 2.5
             gemfile: activerecord_7_0
+          - ruby-version: 2.5
+            gemfile: activerecord_7_1
           - ruby-version: 2.6
             gemfile: activerecord_7_0
+          - ruby-version: 2.6
+            gemfile: activerecord_7_1
           - ruby-version: 3.0
             gemfile: activerecord_5_2
           - ruby-version: 3.1

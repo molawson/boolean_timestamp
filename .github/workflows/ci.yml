@@ -58,13 +58,13 @@ jobs:
           sudo sed -i s/peer/trust/g /etc/postgresql/*/main/pg_hba.conf
           sudo systemctl start postgresql.service
           sudo systemctl start mysql.service
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - uses: amancevice/setup-code-climate@v0
+      - uses: amancevice/setup-code-climate@v2
         name: CodeClimate setup
         if: ${{ matrix.coverage == 'true' }}
         with:
@@ -84,7 +84,7 @@ jobs:
   Standard:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:

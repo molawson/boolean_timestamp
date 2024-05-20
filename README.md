@@ -92,12 +92,13 @@ Article.not_published # => [draft]
 
 This gem works with a variety of Ruby and Rails versions. The aim is to cover as broad a range of versions as is practical. This matrix should mostly reflect the versions of Ruby and Rails that are supported in some way by their maintainers (i.e. receiving at least some security patches).
 
-| | Ruby 2.5 | Ruby 2.6 | Ruby 2.7 | Ruby 3.0 | Ruby 3.1 |
-| --- | :---: | :---: | :---: | :---: | :---: |
-| **Rails 5.2** | :warning: | :warning: | :warning: | :no_entry: | :no_entry: |
-| **Rails 6.0** | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| **Rails 6.1** | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| **Rails 7.0** | :no_entry: | :no_entry: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| | Ruby 2.5 | Ruby 2.6 | Ruby 2.7 | Ruby 3.0 | Ruby 3.1 | Ruby 3.2 | Ruby 3.3 |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Rails 5.2** | :warning: | :warning: | :warning: | :no_entry: | :no_entry: | :no_entry: | :no_entry: |
+| **Rails 6.0** | :warning: | :warning: | :warning: | :warning: | :warning: | :warning: | :warning: |
+| **Rails 6.1** | :warning: | :warning: | :warning: | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| **Rails 7.0** | :no_entry: | :no_entry: | :warning: | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| **Rails 7.1** | :no_entry: | :no_entry: | :warning: | :warning: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 * :white_check_mark: - fully tested and supported
 * :no_entry: - not tested or supported

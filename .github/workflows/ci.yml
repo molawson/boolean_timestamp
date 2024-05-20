@@ -17,27 +17,38 @@ jobs:
       matrix:
         ruby-version:
           - '2.5' # deprecated
-          - '2.6'
-          - '2.7'
-          - '3.0'
+          - '2.6' # deprecated
+          - '2.7' # deprecated
+          - '3.0' # deprecated
           - '3.1'
+          - '3.2'
+          - '3.3'
         gemfile:
           - activerecord_5_2 # deprecated
-          - activerecord_6_0
+          - activerecord_6_0 # deprecated
           - activerecord_6_1
           - activerecord_7_0
+          - activerecord_7_1
         include:
-          - ruby-version: '3.0'
-            gemfile: activerecord_7_0
+          - ruby-version: '3.3'
+            gemfile: activerecord_7_1
             coverage: 'true'
         exclude:
           - ruby-version: 2.5
             gemfile: activerecord_7_0
+          - ruby-version: 2.5
+            gemfile: activerecord_7_1
           - ruby-version: 2.6
             gemfile: activerecord_7_0
+          - ruby-version: 2.6
+            gemfile: activerecord_7_1
           - ruby-version: 3.0
             gemfile: activerecord_5_2
           - ruby-version: 3.1
+            gemfile: activerecord_5_2
+          - ruby-version: 3.2
+            gemfile: activerecord_5_2
+          - ruby-version: 3.3
             gemfile: activerecord_5_2
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -47,13 +58,13 @@ jobs:
           sudo sed -i s/peer/trust/g /etc/postgresql/*/main/pg_hba.conf
           sudo systemctl start postgresql.service
           sudo systemctl start mysql.service
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - uses: amancevice/setup-code-climate@v0
+      - uses: amancevice/setup-code-climate@v2
         name: CodeClimate setup
         if: ${{ matrix.coverage == 'true' }}
         with:
@@ -73,7 +84,7 @@ jobs:
   Standard:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
